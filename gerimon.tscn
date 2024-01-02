@@ -1,0 +1,128 @@
+[gd_scene load_steps=18 format=3 uid="uid://bq2ybmfqw0fgu"]
+
+[ext_resource type="Script" path="res://gerimon.gd" id="1_rl75q"]
+[ext_resource type="Texture2D" uid="uid://bm3vplbbnnj1w" path="res://assets/tsuisoku.png" id="2_4oj3i"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_pleqq"]
+atlas = ExtResource("2_4oj3i")
+region = Rect2(0, 0, 96, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_ywtuj"]
+atlas = ExtResource("2_4oj3i")
+region = Rect2(96, 0, 96, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_x778b"]
+atlas = ExtResource("2_4oj3i")
+region = Rect2(0, 0, 96, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_4357l"]
+atlas = ExtResource("2_4oj3i")
+region = Rect2(96, 0, 96, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_arinb"]
+atlas = ExtResource("2_4oj3i")
+region = Rect2(192, 0, 96, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_v2tgh"]
+atlas = ExtResource("2_4oj3i")
+region = Rect2(288, 0, 96, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_jf4gi"]
+atlas = ExtResource("2_4oj3i")
+region = Rect2(384, 0, 96, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_blrq8"]
+atlas = ExtResource("2_4oj3i")
+region = Rect2(480, 0, 96, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_ysan5"]
+atlas = ExtResource("2_4oj3i")
+region = Rect2(576, 0, 96, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_qklkj"]
+atlas = ExtResource("2_4oj3i")
+region = Rect2(672, 0, 96, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_yrova"]
+atlas = ExtResource("2_4oj3i")
+region = Rect2(768, 0, 96, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_q76bg"]
+atlas = ExtResource("2_4oj3i")
+region = Rect2(864, 0, 96, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_fodni"]
+atlas = ExtResource("2_4oj3i")
+region = Rect2(960, 0, 96, 64)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_asijm"]
+animations = [{
+"frames": [{
+"duration": 6.0,
+"texture": SubResource("AtlasTexture_pleqq")
+}, {
+"duration": 6.0,
+"texture": SubResource("AtlasTexture_ywtuj")
+}],
+"loop": true,
+"name": &"stand",
+"speed": 16.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_x778b")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_4357l")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_arinb")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_v2tgh")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_jf4gi")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_blrq8")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_ysan5")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_qklkj")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_yrova")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_q76bg")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_fodni")
+}],
+"loop": true,
+"name": &"tsuisoku",
+"speed": 16.0
+}]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_f2w3s"]
+size = Vector2(40, 62)
+
+[node name="Gerimon" type="CharacterBody2D"]
+collision_layer = 2
+collision_mask = 3
+platform_floor_layers = 4294901761
+script = ExtResource("1_rl75q")
+metadata/_edit_group_ = true
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
+sprite_frames = SubResource("SpriteFrames_asijm")
+animation = &"tsuisoku"
+frame_progress = 0.88482
+centered = false
+offset = Vector2(-24, -33)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("RectangleShape2D_f2w3s")
