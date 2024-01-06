@@ -1,12 +1,15 @@
 class_name Gerimon extends CharacterBody2D
 
-signal hit_success(is_head_shot)
+signal hit_success(attacker, victim, is_head_shot)
 
+var HeadScene = preload("res://head.tscn")
 var hit_box_detection = preload("res://hit_box_detection.gd")
 var collisions = hit_box_detection.new().collisions
 
+@export var color: String = "green"
+
 var speed = 50
-var jump_speed = 160
+var jump_speed = 200
 var dir = 1
 var paused = false
 var hit = false
@@ -115,10 +118,9 @@ var _comboable_from_fujogeri = _comboable_from('fujogeri', _10th, _16th)
 var _comboable_from_manjigeri = _comboable_from('manjigeri', _10th, _13th)
 var _comboable_from_koten = _comboable_from('koten', _10th, _13th)
 
-func _attack(trget, animation, frame_changed = null, animation_finished = null):
+func _attack(animation, frame_changed = null, animation_finished = null):
 	return func(comboables = []): if _attack_guard(comboables):
 		sounded = false
-		target = trget
 		attacking = true
 		velocity.x = 0
 		var combo = _get_acceptable_combo(comboables)
@@ -132,8 +134,8 @@ func _attack(trget, animation, frame_changed = null, animation_finished = null):
 		if frame_changed: $AnimatedSprite2D.frame_changed.connect(frame_changed)
 		if animation_finished: $AnimatedSprite2D.animation_finished.connect(animation_finished)
 
-func fujogeri(trget = null):
-	_attack(trget, "fujogeri", _fujogeri_step).call([
+func fujogeri():
+	_attack("fujogeri", _fujogeri_step).call([
 		_comboable_from_sentainotsuki.call(_3rd),
 		_comboable_from_senten.call(_5th),
 	])
@@ -143,8 +145,8 @@ func _fujogeri_step():
 		velocity.y = -jump_speed
 		$AnimatedSprite2D.frame_changed.disconnect(_fujogeri_step)
 
-func fujogeri_forward(trget = null):
-	_attack(trget, "fujogeri", _fujogeri_forward_step).call([
+func fujogeri_forward():
+	_attack("fujogeri", _fujogeri_forward_step).call([
 		_comboable_from_sentainotsuki.call(_3rd),
 		_comboable_from_senten.call(_5th),
 	])
@@ -155,15 +157,15 @@ func _fujogeri_forward_step():
 		velocity.y = -jump_speed
 		$AnimatedSprite2D.frame_changed.disconnect(_fujogeri_forward_step)
 
-func hangetsuate(trget = null):
-	_attack(trget, "hangetsuate").call([
+func hangetsuate():
+	_attack("hangetsuate").call([
 		_comboable_from_manjigeri.call(_5th, func(): position.x += dir * 10),
 		_comboable_from_koten.call(_5th, func(): _turn()),
 		_comboable_from_senten.call(_5th),
 	])
 
-func sentainotsuki(trget = null):
-	_attack(trget, "sentainotsuki", null, _sentainotsuki_end).call([
+func sentainotsuki():
+	_attack("sentainotsuki", null, _sentainotsuki_end).call([
 		_comboable_from_sensogeri.call(_6th),
 		_comboable_from_manjigeri.call(_7th)
 	])
@@ -172,20 +174,20 @@ func _sentainotsuki_end():
 	position.x += dir * 15 * 2
 	$AnimatedSprite2D.animation_finished.disconnect(_sentainotsuki_end)
 
-func manjigeri(trget = null):
-	_attack(trget, "manjigeri").call([
+func manjigeri():
+	_attack("manjigeri").call([
 		_comboable_from_fujogeri.call(_2nd),
 		_comboable_from_koten.call(_4th, func(): _turn()),
 		_comboable_from_senten.call(_4th),
 	])
 
-func suiheigeri(trget = null):
-	_attack(trget, "suiheigeri").call([
+func suiheigeri():
+	_attack("suiheigeri").call([
 		_comboable_from_sensogeri.call(_4th, func(): position.x += dir * 4)
 	])
 
-func sensogeri(trget = null):
-	_attack(trget, "sensogeri").call([
+func sensogeri():
+	_attack("sensogeri").call([
 		_comboable_from_manjigeri.call(_8th, func(): position.x += dir * 8),
 		_comboable_from_koten.call(_8th, func(): _turn()),
 		_comboable_from_senten.call(_8th)
@@ -283,16 +285,18 @@ func taisoku(): if _walk_guard():
 
 #endregion
 
-func _hit(is_head_hit):
+func _hit(attacker, is_head_hit):
 	if (hit): return
 	stand()
 	hit = true
 	if is_head_hit: $AnimatedSprite2D.play("hithead")
 	else: $AnimatedSprite2D.play("hittorso")
-	emit_signal("hit_success", is_head_hit)
+	emit_signal("hit_success", attacker, self, is_head_hit)
 
-func _on_body_hit(_area: Area2D):
-	_hit(false)
+func _on_body_hit(area: Area2D):
+	var shape = area.shape_owner_get_owner(0)
+	var attacker = shape.get_parent().get_parent()
+	_hit(attacker, false)
 
 func _on_head_hit(area: Area2D):
 	var shape = area.shape_owner_get_owner(0)
@@ -305,7 +309,14 @@ func _on_head_hit(area: Area2D):
 		"sentainotsuki": 25,
 		"hangetsuate": 40
 	}.get(attacker.action, 0)
-	_hit(force > 35 and randf() > 0.75)
+	var is_head_shot = force > 35 and randf() > 0#.75
+	if is_head_shot: _heads_off(force)
+	_hit(attacker, is_head_shot)
+
+func _heads_off(force):
+	var head = HeadScene.instantiate()
+	add_child(head)
+	head.apply_central_impulse(Vector2(dir * force * 5, -180))
 
 func _stand_at_end_of_action():
 	if action != "stand":

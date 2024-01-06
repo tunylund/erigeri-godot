@@ -1,0 +1,20 @@
+[gd_scene load_steps=4 format=3 uid="uid://cl0y81hk5he53"]
+
+[ext_resource type="Script" path="res://Head.gd" id="1_yk0gv"]
+
+[sub_resource type="PhysicsMaterial" id="PhysicsMaterial_l5omg"]
+friction = 0.0
+bounce = 0.5
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_0iiyp"]
+radius = 7.0
+
+[node name="Head" type="RigidBody2D"]
+position = Vector2(20, 2.08165e-12)
+collision_layer = 16
+mass = 0.5
+physics_material_override = SubResource("PhysicsMaterial_l5omg")
+script = ExtResource("1_yk0gv")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("CircleShape2D_0iiyp")

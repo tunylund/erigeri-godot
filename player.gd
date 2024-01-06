@@ -14,7 +14,6 @@ func attackControls():
 	if !Input.is_action_pressed("attack"):
 		return
 
-	var target = null
 	#var tDist = Infinity
 	#var dist = 0
 	#for(let player of this.stage.lists.players) {
@@ -28,25 +27,25 @@ func attackControls():
 	#}
 #is_action_just_pressed
 	if Input.is_action_pressed("up") && Input.is_action_pressed(directions.find_key(dir)):
-		fujogeri_forward(target)
+		fujogeri_forward()
 
 	if Input.is_action_pressed("up"):
-		fujogeri(target)
+		fujogeri()
 
 	if Input.is_action_pressed("down") && Input.is_action_pressed(directions.find_key(-dir)):
-		hangetsuate(target)
+		hangetsuate()
 
 	if Input.is_action_pressed("down") && Input.is_action_pressed(directions.find_key(dir)):
-		sentainotsuki(target)
+		sentainotsuki()
 
 	if Input.is_action_pressed("down"):
-		manjigeri(target)
+		manjigeri()
 
 	if Input.is_action_pressed(directions.find_key(dir)):
-		suiheigeri(target)
+		suiheigeri()
 
 	if Input.is_action_pressed(directions.find_key(-dir)):
-		sensogeri(target)
+		sensogeri()
 
 func unsokuControls():
 	if paused:

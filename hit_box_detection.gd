@@ -1,5 +1,6 @@
 extends Node
 
+var hit_collision = { "body": build_collisions("res://assets/tsuisoku-collisions.png").body }
 @export var collisions = {
 	"fujogeri": build_collisions("res://assets/fujogeri-collisions.png"),
 	"hangetsuate": build_collisions("res://assets/hangetsuate-collisions.png"),
@@ -15,6 +16,8 @@ extends Node
 	"taisoku": reverse_collisions(build_collisions("res://assets/tsuisoku-collisions.png")),
 	"tsuisoku": build_collisions("res://assets/tsuisoku-collisions.png"),
 	"ushiro": build_collisions("res://assets/ushiro-collisions.png"),
+	"hittorso": hit_collision,
+	"hithead": hit_collision,
 }
 
 func find_color_rect(data, red_color, tilew):

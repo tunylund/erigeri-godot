@@ -28,5 +28,11 @@ position = Vector2(279, 325)
 [node name="HeadVictim" parent="." instance=ExtResource("2_q8w3c")]
 position = Vector2(309, 325)
 
+[node name="UHeadAttacker" parent="." instance=ExtResource("2_q8w3c")]
+position = Vector2(487, 326)
+
+[node name="UHeadVictim" parent="." instance=ExtResource("2_q8w3c")]
+position = Vector2(455, 326)
+
 [connection signal="hit_success" from="BodyVictim" to="." method="_on_hit"]
 [connection signal="hit_success" from="HeadVictim" to="." method="_on_hit"]
