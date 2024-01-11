@@ -1,0 +1,29 @@
+[gd_scene load_steps=5 format=3 uid="uid://cl0y81hk5he53"]
+
+[ext_resource type="Script" path="res://lib/Head.gd" id="1_li1qr"]
+[ext_resource type="AudioStream" uid="uid://c381h1ceip4j8" path="res://assets/bounce.mp3" id="2_pjqpx"]
+
+[sub_resource type="PhysicsMaterial" id="PhysicsMaterial_l5omg"]
+friction = 0.0
+bounce = 0.5
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_0iiyp"]
+radius = 7.0
+
+[node name="Head" type="RigidBody2D"]
+position = Vector2(20, 2.08165e-12)
+collision_layer = 16
+mass = 0.5
+physics_material_override = SubResource("PhysicsMaterial_l5omg")
+max_contacts_reported = 100
+contact_monitor = true
+script = ExtResource("1_li1qr")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("CircleShape2D_0iiyp")
+
+[node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("2_pjqpx")
+max_polyphony = 10
+
+[connection signal="body_entered" from="." to="." method="_on_body_entered"]

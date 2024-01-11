@@ -1,0 +1,38 @@
+[gd_scene load_steps=7 format=3 uid="uid://bwo7xxgms7wx7"]
+
+[ext_resource type="PackedScene" uid="uid://bq2ybmfqw0fgu" path="res://lib/gerimon.tscn" id="1_nruhk"]
+[ext_resource type="Script" path="res://lib/auto_player.gd" id="2_nxwis"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_lbdb3"]
+resource_local_to_scene = true
+resource_name = "torso"
+size = Vector2(2.08165e-12, 2.08165e-12)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_o361s"]
+resource_local_to_scene = true
+resource_name = "head"
+size = Vector2(2.08165e-12, 2.08165e-12)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_6hkoo"]
+resource_local_to_scene = true
+size = Vector2(2.08165e-12, 2.08165e-12)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_rxv53"]
+resource_local_to_scene = true
+size = Vector2(40, 62)
+
+[node name="AutoPlayer" instance=ExtResource("1_nruhk")]
+script = ExtResource("2_nxwis")
+color = "green"
+
+[node name="BodyShape" parent="BodyArea" index="0"]
+shape = SubResource("RectangleShape2D_lbdb3")
+
+[node name="HeadShape" parent="HeadArea" index="0"]
+shape = SubResource("RectangleShape2D_o361s")
+
+[node name="HitShape" parent="HitArea" index="0"]
+shape = SubResource("RectangleShape2D_6hkoo")
+
+[node name="WorldCollisionArea" parent="." index="4"]
+shape = SubResource("RectangleShape2D_rxv53")

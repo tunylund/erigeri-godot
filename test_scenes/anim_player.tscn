@@ -1,0 +1,9 @@
+[gd_scene load_steps=2 format=3 uid="uid://bm0eoe2fubdyo"]
+
+[ext_resource type="Script" path="res://test_scenes/anim_player.gd" id="2_j0ojt"]
+
+[node name="AnimPlayer" type="Node2D"]
+script = ExtResource("2_j0ojt")
+metadata/_edit_group_ = true
+
+[node name="StaticBody2D" type="StaticBody2D" parent="."]

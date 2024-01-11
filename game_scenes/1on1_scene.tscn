@@ -1,0 +1,34 @@
+[gd_scene load_steps=8 format=3 uid="uid://bhuw3v65p2i5s"]
+
+[ext_resource type="Script" path="res://game_scenes/1on1_scene.gd" id="1_w4sml"]
+[ext_resource type="PackedScene" uid="uid://dbveg8irl5i6r" path="res://lib/level.tscn" id="2_i4kyu"]
+[ext_resource type="PackedScene" uid="uid://b2dlqjkbsh64h" path="res://lib/scores.tscn" id="3_2k05a"]
+[ext_resource type="PackedScene" uid="uid://17qucpu52w5a" path="res://lib/judge.tscn" id="4_hgj6j"]
+[ext_resource type="PackedScene" uid="uid://bwo7xxgms7wx7" path="res://lib/auto_player.tscn" id="5_8po2e"]
+[ext_resource type="PackedScene" uid="uid://cajehbdey8hlp" path="res://lib/player.tscn" id="6_2npbm"]
+
+[sub_resource type="AudioStreamMP3" id="AudioStreamMP3_6ro8r"]
+loop = true
+
+[node name="1on1" type="Node2D"]
+script = ExtResource("1_w4sml")
+
+[node name="level" parent="." instance=ExtResource("2_i4kyu")]
+
+[node name="Scores" parent="." instance=ExtResource("3_2k05a")]
+
+[node name="Judge" parent="." instance=ExtResource("4_hgj6j")]
+position = Vector2(45, 363)
+scale = Vector2(0.9, 0.9)
+
+[node name="AutoPlayer2" parent="." instance=ExtResource("5_8po2e")]
+position = Vector2(300, 328)
+color = "blue"
+direction = -1
+
+[node name="Player" parent="." instance=ExtResource("6_2npbm")]
+position = Vector2(120, 328)
+color = "orange"
+
+[node name="MusicPlayer" type="AudioStreamPlayer" parent="."]
+stream = SubResource("AudioStreamMP3_6ro8r")

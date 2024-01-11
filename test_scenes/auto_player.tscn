@@ -1,0 +1,23 @@
+[gd_scene load_steps=4 format=3 uid="uid://b8uoy0d5krm5s"]
+
+[ext_resource type="Script" path="res://test_scenes/auto_player.gd" id="1_ht3hw"]
+[ext_resource type="PackedScene" uid="uid://bwo7xxgms7wx7" path="res://lib/auto_player.tscn" id="3_oij8q"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_bexld"]
+size = Vector2(600, 20)
+
+[node name="Node2D" type="Node2D"]
+script = ExtResource("1_ht3hw")
+
+[node name="StaticBody2D" type="StaticBody2D" parent="."]
+position = Vector2(300, 400)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="StaticBody2D"]
+shape = SubResource("RectangleShape2D_bexld")
+
+[node name="Blue" parent="." instance=ExtResource("3_oij8q")]
+position = Vector2(128, 325)
+color = "blue"
+
+[node name="Green" parent="." instance=ExtResource("3_oij8q")]
+position = Vector2(242, 324)

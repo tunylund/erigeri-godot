@@ -1,0 +1,26 @@
+[gd_scene load_steps=4 format=3 uid="uid://dsg4jpq8pgiax"]
+
+[ext_resource type="PackedScene" uid="uid://17qucpu52w5a" path="res://lib/judge.tscn" id="1_n6r7v"]
+[ext_resource type="Script" path="res://test_scenes/judge_scene.gd" id="1_u4qqs"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_34q66"]
+size = Vector2(600, 20)
+
+[node name="JudgeScene" type="Node2D"]
+script = ExtResource("1_u4qqs")
+
+[node name="StaticBody2D" type="StaticBody2D" parent="."]
+position = Vector2(300, 400)
+
+[node name="CollisionLevel1" type="CollisionShape2D" parent="StaticBody2D"]
+position = Vector2(0, -200)
+shape = SubResource("RectangleShape2D_34q66")
+
+[node name="CollisionLevel2" type="CollisionShape2D" parent="StaticBody2D"]
+shape = SubResource("RectangleShape2D_34q66")
+
+[node name="Judge1" parent="." instance=ExtResource("1_n6r7v")]
+position = Vector2(40, 158)
+
+[node name="Judge2" parent="." instance=ExtResource("1_n6r7v")]
+position = Vector2(40, 358)
