@@ -4,7 +4,7 @@ signal hit_success(attacker, victim, is_head_shot)
 
 var HeadScene = preload("res://lib/head.tscn")
 var hit_box_detection = preload("res://lib/hit_box_detection.gd")
-var collisions = HitBoxDetection.get_collisions(interpolation_multiplier)
+var collisions = hit_box_detection.read_from_file()
 
 @export var color: String = "green"
 @export var direction: int:
@@ -60,6 +60,12 @@ func _ready():
 	$AnimatedSprite2D.animation_finished.connect(_stand_at_end_of_action)
 	$AnimatedSprite2D.animation_changed.connect(_clear_frame_step_listeners)
 	$AnimatedSprite2D.frame_changed.connect(_sound_missed_hit)
+	var edge_color = Color({
+		"orange": "#f07900",
+		"blue": "#69f",
+		"green": "#4d5",
+	}[color])
+	$AnimatedSprite2D.material.set_shader_parameter("edge_color", edge_color)
 	stand()
 
 func _physics_process(delta):
@@ -132,6 +138,7 @@ var _comboable_from_koten = _comboable_from('koten', _10th, _13th)
 func _attack(animation, frame_changed = null, animation_finished = null):
 	return func(comboables = []): if _attack_guard(comboables):
 		attacking = true
+		walking = false
 		sounded = false
 		velocity.x = 0
 		var combo = _get_acceptable_combo(comboables)
@@ -184,7 +191,7 @@ func hangetsuate():
 
 func sentainotsuki():
 	_attack("sentainotsuki", null, _sentainotsuki_end).call([
-		_comboable_from_sensogeri.call(_6th),
+		#_comboable_from_sensogeri.call(_6th),
 		_comboable_from_manjigeri.call(_7th)
 	])
 
@@ -215,7 +222,7 @@ func sensogeri():
 #region unsoku functions
 
 func stand():
-	$AnimatedSprite2D.animation = "stand"
+	_play_animation("stand")
 	velocity.x = 0
 	walking = false
 	attacking = false

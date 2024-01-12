@@ -89,15 +89,15 @@ func _process(_delta):
 	if paused: return
 	if players.size() == 0 and balls.size() == 0: return
 
-	var others = players.filter(func(other): return other != self).filter(func(other): return not other.hit)
+	var others = players.filter(func(o): return o != self).filter(func(o): return not o.hit)
 	var other = others.pick_random() if others.size() > 0 else null
 
-	var balls_coming_towards = balls.filter(func(ball):
-		if ball.global_position.x < global_position.x and ball.velocity.x > 0: return true
-		elif ball.global_position.x > global_position.x and ball.velocity.x < 0: return true
-		return false)
-	var nearby_balls = balls_coming_towards.filter(func(ball): return distance_to(ball) < hit_distance * 4)
-	var nearest_ball = nearby_balls.reduce(func(a, b): return a if distance_to(a) < distance_to(b) else b)
+	#var balls_coming_towards = balls.filter(func(ball):
+		#if ball.global_position.x < global_position.x and ball.velocity.x > 0: return true
+		#elif ball.global_position.x > global_position.x and ball.velocity.x < 0: return true
+		#return false)
+	#var nearby_balls = balls_coming_towards.filter(func(ball): return distance_to(ball) < hit_distance * 4)
+	#var _nearest_ball = nearby_balls.reduce(func(a, b): return a if distance_to(a) < distance_to(b) else b)
 	
 	if other:
 		turn_towards(other)

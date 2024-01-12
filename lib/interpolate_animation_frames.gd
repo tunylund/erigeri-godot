@@ -22,14 +22,14 @@ func prev_row_color(data, index, tilew):
 func next_row_color(data, index, tilew):
 	return get_color(data, index + tilew * 4)
 
-func prev_color(data, index):
+func prev_color(data, index, tilew = 0):
 	return get_color(data, index - 4)
 
-func next_color(data, index):
+func next_color(data, index, tilew = 0):
 	return get_color(data, index + 4)
 
 func diff_int(a, b):
-	return min(a, b) + (abs(min(a, b) - max(a, b)) / 2).floor()
+	return min(a, b) + floor(abs(min(a, b) - max(a, b)) / 2)
 
 func diff_color(a, b):
 	return Color(
@@ -75,15 +75,15 @@ func diff_pass(a_data, b_data, i_data):
 func blur_pass(rnge, a_data, b_data, i_data, adjacent_color_fn, tile_w):
 	#print("blurpass of ", rnge.front(), "-", rnge.back(), " (", rnge.size(), ") using ", adjacent_color_fn)
 	for i in rnge:
-		if is_transparent(a_data, i) and is_transparent(b_data, i): return
+		if is_transparent(a_data, i) and is_transparent(b_data, i): continue
 		var ic = get_color(i_data, i)
 		var adjc = adjacent_color_fn.call(i_data, i, tile_w)
 		if is_darker(adjc, ic): set_color(diff_color(BLACK, ic), i_data, i)
 
 func weigh_pass(rnge, o_data, i_data, adjacent_color_fn, tilew):
-	print("weighpass of ", rnge.front(), "-", rnge.back(), " (", rnge.size(), ") using ", adjacent_color_fn)
+	#print("weighpass of ", rnge.front(), "-", rnge.back(), " (", rnge.size(), ") using ", adjacent_color_fn)
 	for i in rnge:
-		if is_transparent(o_data, i): return
+		if is_transparent(o_data, i): continue
 		var ic = get_color(i_data, i)
 		var adjc = adjacent_color_fn.call(i_data, i, tilew)
 		if is_darker(adjc, ic): set_color(diff_color(BLACK, ic), i_data, i)
@@ -94,7 +94,7 @@ func interpolate(frames: Array, pass_count):
 	var j = 0
 	for i in range(frames.size() - 1):
 		var a = frames[i]
-		var b = frames[i + 1]
+		var b = frames.front() if a == frames.back() else frames[i + 1]
 		var tilew = a.get_width()
 		var tileh = a.get_height()
 		var a_data = a.get_data()
@@ -103,7 +103,7 @@ func interpolate(frames: Array, pass_count):
 		i_data.resize(a_data.size())
 		i_data.fill(0)
 		
-		#print("creating diff of frames ", i, " and ", i+1, " ", a, " and ", b, " width ", tilew, " height ", tileh, " bytes ", i_data.size())
+		print("creating an interpolation of frames ", i, " and ", i+1, " ", a, " and ", b, " width ", tilew, " height ", tileh, " bytes ", i_data.size())
 		diff_pass(a_data, b_data, i_data)
 		
 		for k in range(2): blur_pass(range(0, i_data.size(), 4), a_data, b_data, i_data, next_color, tilew)
@@ -111,7 +111,7 @@ func interpolate(frames: Array, pass_count):
 		for k in range(2): blur_pass(range(0, i_data.size(), 4), a_data, b_data, i_data, next_row_color, tilew)
 		for k in range(2): blur_pass(range(i_data.size()-4, 0, -4), a_data, b_data, i_data, prev_row_color, tilew)
 		
-		if pass_count % 2 != 0:
+		if (pass_count != 0):
 			if (j % 2 == 0):
 				for k in range(2): weigh_pass(range(0, i_data.size(), 4), a_data, i_data, next_color, tilew)
 				for k in range(2): weigh_pass(range(i_data.size()-4, 0, -4), a_data, i_data, prev_color, tilew)
@@ -149,10 +149,12 @@ func interpolate_animation(sprite_frames, animation_name):
 	print("result of ", animation_name, " contains ", result_pass_1.size(), " frames")
 
 	for frame_image in result_pass_1:
+		var ix = floor(result_pass_1.find(frame_image) / interpolation_multiplier)
+		var duration = sprite_frames.get_frame_duration(animation_name, ix)
 		sprite_frames.add_frame(
 			animation_name_i,
 			ImageTexture.create_from_image(frame_image),
-			1.0)
+			duration)
 		sprite_frames.set_animation_loop(animation_name_i, sprite_frames.get_animation_loop(animation_name))
 		sprite_frames.set_animation_speed(animation_name_i, sprite_frames.get_animation_speed(animation_name) * interpolation_multiplier)
 

@@ -70,7 +70,7 @@ func unsokuControls():
 
 	if Input.is_action_pressed(directions.find_key(dir)):
 		ninoashi()
-		if $AnimatedSprite2D.animation == "ninoashi" && _frame > _1st:
+		if action == "ninoashi" && _frame > _1st:
 			stand()
 			tsuisoku()
 

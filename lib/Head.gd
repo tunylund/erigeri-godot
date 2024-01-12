@@ -12,6 +12,5 @@ func _integrate_forces(_state):
 	if not screen_size.has_point(global_position):
 		queue_free()
 
-
-func _on_body_entered(body):
+func _on_body_entered(_body):
 	$AudioStreamPlayer.play()

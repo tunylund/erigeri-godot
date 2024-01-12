@@ -1,7 +1,15 @@
-[gd_scene load_steps=7 format=3 uid="uid://cajehbdey8hlp"]
+[gd_scene load_steps=9 format=3 uid="uid://cajehbdey8hlp"]
 
 [ext_resource type="PackedScene" uid="uid://bq2ybmfqw0fgu" path="res://lib/gerimon.tscn" id="1_hpxtb"]
 [ext_resource type="Script" path="res://lib/player.gd" id="2_q5oko"]
+[ext_resource type="Shader" path="res://lib/gerimon.gdshader" id="3_ikvsd"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_5c617"]
+resource_local_to_scene = true
+shader = ExtResource("3_ikvsd")
+shader_parameter/edge_color = Vector4(1, 0, 0, 1)
+shader_parameter/edge_thickness = 2.0
+shader_parameter/texture_size = Vector2(96, 64)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_kvb2c"]
 resource_local_to_scene = true
@@ -23,6 +31,9 @@ size = Vector2(40, 62)
 
 [node name="Player" instance=ExtResource("1_hpxtb")]
 script = ExtResource("2_q5oko")
+
+[node name="AnimatedSprite2D" parent="." index="0"]
+material = SubResource("ShaderMaterial_5c617")
 
 [node name="BodyShape" parent="BodyArea" index="0"]
 shape = SubResource("RectangleShape2D_kvb2c")

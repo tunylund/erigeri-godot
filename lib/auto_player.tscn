@@ -23,7 +23,6 @@ size = Vector2(40, 62)
 
 [node name="AutoPlayer" instance=ExtResource("1_nruhk")]
 script = ExtResource("2_nxwis")
-color = "green"
 
 [node name="BodyShape" parent="BodyArea" index="0"]
 shape = SubResource("RectangleShape2D_lbdb3")
