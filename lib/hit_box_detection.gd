@@ -66,20 +66,6 @@ func export_to_file(collisions):
 				]
 	file.store_string(JSON.stringify(converted_result))
 
-static func read_from_file():
-	var file = FileAccess.open("res://lib/collisions.json", FileAccess.READ)
-	var collisions_raw = JSON.parse_string(file.get_as_text())
-	var collisions = {}
-	for animation in collisions_raw:
-		collisions[animation] = collisions.get(animation, {})
-		for type in collisions_raw[animation]:
-			collisions[animation][type] = collisions[animation].get(type, {})
-			for frame in collisions_raw[animation][type]:
-				var src = collisions_raw[animation][type][frame]
-				var collision = Rect2i(src[0], src[1], src[2], src[3])
-				collisions[animation][type][int(frame)] = collision
-	return collisions
-
 func _run():
 	var hit_collision = { "body": build_collisions("res://assets/tsuisoku-collisions.png").body }
 	var collisions = {

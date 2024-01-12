@@ -3,8 +3,21 @@ class_name Gerimon extends CharacterBody2D
 signal hit_success(attacker, victim, is_head_shot)
 
 var HeadScene = preload("res://lib/head.tscn")
-var hit_box_detection = preload("res://lib/hit_box_detection.gd")
-var collisions = hit_box_detection.read_from_file()
+var collisions = read_collisions_from_file()
+
+static func read_collisions_from_file():
+	var file = FileAccess.open("res://lib/collisions.json", FileAccess.READ)
+	var collisions_raw = JSON.parse_string(file.get_as_text())
+	var collisions = {}
+	for animation in collisions_raw:
+		collisions[animation] = collisions.get(animation, {})
+		for type in collisions_raw[animation]:
+			collisions[animation][type] = collisions[animation].get(type, {})
+			for frame in collisions_raw[animation][type]:
+				var src = collisions_raw[animation][type][frame]
+				var collision = Rect2i(src[0], src[1], src[2], src[3])
+				collisions[animation][type][int(frame)] = collision
+	return collisions
 
 @export var color: String = "green"
 @export var direction: int:
