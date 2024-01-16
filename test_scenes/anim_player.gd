@@ -42,6 +42,8 @@ var action_animations = []
 var combo_animations = []
 
 func _ready():
+	AudioServer.set_bus_mute(0, true)
+	
 	var window = get_tree().root
 	window.size = Vector2i(1800, 1200)
 	var screen_positions = split_viewport_into_squares()

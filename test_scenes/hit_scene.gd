@@ -3,6 +3,8 @@ extends Node2D
 @export var gerimon_scene: PackedScene
 
 func _ready():
+	AudioServer.set_bus_mute(0, true)
+	
 	$UHeadVictim.ushiro()
 	$UHeadAttacker.ushiro()
 
