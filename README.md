@@ -1,8 +1,12 @@
-This project is a conversion of https://github.com/tunylund/erigeri from html5 game into a game using the godot engine. The conversion was a way of learning how to use Google Bard LLM as an additional aid to learn a new tool and language.
+This project is a conversion of https://github.com/tunylund/erigeri from html5 game into a game using the godot engine.
+
+The conversion was a way of evluating the state of Google Bard LLM as an additional aid for the learning experience of a new tool.
+
+Read below for the results of the experience.
 
 ---
 
-To play, download the release from the releases, or run it in Godot.  
+To play, download the release from the releases, or clone and run the project in Godot.  
 
 keys:  
 1 - 1on1 game  
@@ -18,7 +22,7 @@ Arrows: move and affect attack technique
 # Your friendly neighborhood LLM will help you learn faster
 
 TLDR;
-_AI tools  tremendously speed up the learning process of a new language / framework  by pointing to the right direction and providing personalized tutorials for the work at hand._
+_AI tools  tremendously speed up the learning process of a new language and framework  by pointing to the right direction and providing personalized tutorials for the work at hand with no preliminary setup needs._
 
 
 
@@ -39,10 +43,66 @@ Normally - without AI tools - my approach would be:
 * For each concept I have to work with, look up a tutorial or two for an example
 * Combine information from all the sources, write code and learn
 
-This time around I added Google Bard to the mix. I haven’t used AI tools thoroughly before and I was quite skeptical of their usability. I didn’t have a plan on how I wanted to use it and I didn’t want to either. I just wanted something just as simple as Google as a tool next to the others. So I chose to not do any priming on Google Bard - I just opened a new conversation with it and started prompting as per need. It didn’t have access to my code and I didn’t give it any boundaries or constraints to support its decision making. Here’s the breakdown of how it fell into the workflow.
+This time around I added Google Bard to the mix. I haven’t used AI tools thoroughly before and I was quite skeptical of their usability. I didn’t have a plan on how I wanted to use it and I didn’t want to either. I just wanted something just as simple as Google as a tool next to the others. So I chose to not do any priming on Google Bard - I just opened a new conversation with it and started prompting as per need. It didn’t have access to my code and I didn’t give it any boundaries or constraints to support its decision making. 
 
 ![Image of the original game](./readme-assets/erigeri-1.gif)
 
+
+
+
+### What did I learn
+
+**I would definitely use Bard (or similar) as an aid when picking up a new language or framework.**
+
+Bard sped up the learning process massively. Almost all I needed for the task was provided by Bard and the high quality of Godot API and Manual documentation. Bard was always able to provide a great starting point for learning any concept and it replaced most needs for tutorials. You still need high quality API documentation to be able to browse for information. I don’t miss navigating various tutorials at all.
+
+
+**It doesn’t replace professional knowledge.**
+
+Obviously you still need to know what good looks like and why. You need to know what to query for and you need to adjust the results to your needs. Nothing new here. You do this anyway with any Google results.
+
+
+**I would welcome my team to use LLM tools as part of the workflow**
+
+I’m keen on experimenting how a team can speed up and exchange their learnings with each other. Can we share prompts? Are prompts better used just when working solo or are they good when pairing as well?
+
+
+**It speeds up conversion projects massively**
+
+Bard was incredibly good at converting from one language to another. Most of the gameplay code was finished within a very short amount of time by simply converting the pre-existing code to GDscript and then adjusting to the new engine manually.
+
+I want to test whether a conversion of a legacy service from one language to another would suddenly be a project that I could safely recommend. In the past this has been too much of a time sink to recommend to anyone. However - if the cost is low - why not just-do-it™.
+
+
+**The tool is usable out of the box - just as your friendly neighborhood search engine is.**
+
+Interaction with Bard was very simple. It needed 0 priming and no IDE setup. I was able to use my clunky english and still get useful results. It carried just enough context from one prompt to the next and was able to be more and more context-appropriate after each prompt.
+
+
+For further details, see below a breakdown of individual experiences with Bard.
+
+---
+
+**Table Of Contents**   
+
+[Getting started](#getting-started)  
+[Sprites and Animation](#sprites-and-animations)
+- [Bard helps with New Code Creation](#bard-helps-with-new-code-creation)  
+- [Bard helps with Language Conversion](#bard-helps-with-language-conversion)  
+- [Bard helps with GDScript structure](#bard-helps-with-gdscript-structure)  
+
+[Collisions](#collisions)
+- [Bard helps avoid following bad paths](#bard-helps-avoid-following-bad-paths)  
+
+[Gameplay](#gameplay)
+- [Bard adjusts its output as suggested](#bard-adjusts-its-output-as-suggested)
+- [Bard helps find bugs](#bard-helps-find-bugs)
+
+[Shaders](#shaders)
+- [Bard helps explore new game concepts](#bard-helps-explore-new-game-concepts)
+
+[Additional Queries used](#additional-queries-used)  
+[Appendice](#appendice)
 
 ### Getting Started
 Godot Manual and documentation is very well written, I was working with a 2d game and the basic “Your first 2d game” tutorial got me started well enough without any need for me to ask for help from Google Bard or even Google.
@@ -54,7 +114,7 @@ Understanding how to organize scenes and nodes in godot took a bit more effort o
 ### Sprites and Animations
 The first thing I set to create after the project setup was to figure out how to create Sprite Sheets and animations in Godot. The Godot manual pointed me towards Sprite Sheets and they were straightforward enough to set up without additional help. However I quite early on began to need a test-game-scene just for displaying the animations. This led to the first prompt to Bard:
 
-#### Bard helps with Code creation
+#### Bard helps with new code creation
 
 
 > ##### Prompt
@@ -253,7 +313,7 @@ The original game had custom code in place to figure out collision rectangles fr
 
 I started prompting Bard with questions about how to use various Godot collision concepts:
 
-#### Bard helps avoid bad paths
+#### Bard helps avoid following bad paths
 
 
 > ##### Prompt
@@ -283,7 +343,7 @@ func _physics_process(delta):
 
 </details>
 
-Bard was able to direct me the right direction even here. You can’t set the position of a RigidBody2D in godot. You apply forces and let them play out by the physics engine. 
+Bard was able to point me at the right direction even here. You can’t set the position of a RigidBody2D in godot. You apply forces and let them play out by the physics engine. 
 
 
 
@@ -362,7 +422,7 @@ Bard began to completely replace any tutorial needs I had. I started taking Bard
 
 ### Gameplay
 
-The game is a simple 2d fighting game, with inspiration coming from a Japanese fight-sport - Taido. The code I had was written using the language and mechanics the sport uses. Most of the gameplay code could be copied over as is after just a simple conversion to GDscript.
+The game is a simple 2d fighting game, with inspiration coming from a Japanese fight-sport - Taido. The code I had written used the language and mechanics the sport uses. Most of the gameplay code could be copied over as is after just a simple conversion to GDscript.
 
 > ##### Prompt
 > _Please convert this javascript function into GDscript:_
@@ -416,7 +476,7 @@ func attack_after_action(target, action):  # Renamed for clarity
 
 I found it interesting how Bard was improving the naming I had in my original code. Inclusivity and non-violence were clearly part of Bards decision making - It’s a fighting game so I can’t really avoid violence that much, but I do appreciate the sentiment.
 
-
+#### Bard adjusts its output as suggested
 
 > ##### Prompt
 > _“And this:"_
@@ -496,10 +556,10 @@ Bard was able to take the instructions and applied it correctly to any further c
 The gameplay code was very quickly converted to GDscript. With Bard's help my work was finished much faster than I anticipated. I was very happy that I didn’t have to manually convert from one language syntax to another.
 
 
-### Bugs
+
+#### Bard helps find bugs
 
 As the project was becoming more and more playable, I saw that there was a bug in the game. I was able to find the general location of the bug, but finding the exact issue was a bit of a mystery. I did eventually find it, but as an experiment I also asked Bard:
-
 
 
 > ##### Prompt
@@ -538,14 +598,15 @@ Bard gave a very thorough explanation of what the function does.
 
 </details>
 
-Again I was surprised. Bard pointed at the bug immediately - not with solid certainty - but the result was good enough to be useful to me. The bug was the early return statement in the function.
+Again I was surprised. Bard pointed at the bug immediately - not with solid certainty - but the result was good enough to be useful to me. The bug was the early return statement in the function - I should've used `continue` instead to allow the loop to finish.
 
 
 
 ### Shaders
 
-To differentiate between characters, I decided to write a simple shader that colorizes the edges of each character to their designated colors. The original game didn’t use a shader, but rather created individual graphics in memory for each color. Since we’re working with a proper game engine - I thought it would be only appropriate to utilize shaders for this functionality. For this I had to create new code.
+To differentiate between characters, I decided to write a simple shader that colorizes the edges of each character to their designated colors. The original game didn’t use a shader, but rather created individual textures in memory for each character color. Since we’re working with a proper game engine - I thought it would be only appropriate to utilize shaders for this functionality. For this I had to create new code.
 
+#### Bard helps explore new game concepts
 
 
 > ##### Prompt
@@ -653,37 +714,8 @@ But now I had a starting point and some example shader language code to begin wi
 
 
 
-### What did I learn
 
-**I would definitely use Bard (or similar) as an aid when picking up a new language or framework.**
-
-Bard sped up the learning process massively. Almost all I needed for the task was provided by Bard and the high quality of Godot API and Manual documentation. Bard was always able to provide a great starting point for learning any concept and it replaced most needs for tutorials. You still need high quality API documentation to be able to browse for information. I don’t miss navigating various tutorials at all.
-
-
-**It doesn’t replace professional knowledge.**
-
-Obviously you still need to know what good looks like and why. You need to know what to query for and you need to adjust the results to your needs. Nothing new here. You do this with any Google results anyway.
-
-
-**I would welcome my team to use LLM tools as part of the workflow**
-
-I’m keen on experimenting how a team can speed up and exchange their learnings with each other. Can we share prompts? Are prompts better used just when working solo?
-
-
-**It speeds up conversion projects massively**
-
-Bard was incredibly good at converting from one language to another. Most of the gameplay code was finished within a very short amount of time by simply converting the pre-existing code to GDscript and then adjusting to the new engine manually.
-
-I want to test whether a conversion of a legacy service from one language to another would suddenly be a project that I could safely recommend. In the past this has been too much of a time sink to recommend to anyone. However - if the cost is low - why not just-do-it™.
-
-
-**The tool is usable out of the box - just as your friendly neighborhood search engine is.**
-
-Interaction with Bard was very simple. It needed 0 priming and I was able to use my clunky english and still get useful results. It carried just enough context from one question to the next and was able to be more and more context-appropriate after each question.
-
-
-
-**Appendice**
+### Appendice
 
 Original game in Github: https://github.com/tunylund/erigeri  
 Source for Godot version: https://github.com/tunylund/erigeri-godot  
