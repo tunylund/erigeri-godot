@@ -26,7 +26,7 @@ _AI tools  tremendously speed up the learning process of a new language and fram
 
 
 
-### How do AI tools support the regular development workflow?
+### How do AI tools support learning workflow?
 
 It’s Christmas holiday and I finally had a moment of time in my hands to learn something new. I’ve always loved using simple games as pet projects for learning. This time around I embarked on this quest to figure out how to incorporate AI tools into my learning workflow.
 
