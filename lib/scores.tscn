@@ -5,11 +5,12 @@
 
 [sub_resource type="SystemFont" id="SystemFont_hlwdw"]
 font_names = PackedStringArray("Papyrus", "Fantasy", "Sans-Serif")
+font_weight = 600
 subpixel_positioning = 0
 
 [sub_resource type="LabelSettings" id="LabelSettings_021xv"]
 font = SubResource("SystemFont_hlwdw")
-font_color = Color(0, 0, 0, 1)
+shadow_color = Color(0, 0, 0, 1)
 
 [sub_resource type="SystemFont" id="SystemFont_ca20t"]
 font_names = PackedStringArray("Papyrus", "Fantasy", "Sans-Serif")
@@ -101,3 +102,5 @@ offset_right = 79.0
 offset_bottom = 27.0
 text = "0"
 label_settings = SubResource("LabelSettings_24snm")
+
+[node name="bg" type="Node2D" parent="FlowContainer"]

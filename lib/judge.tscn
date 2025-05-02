@@ -205,7 +205,6 @@ subpixel_positioning = 0
 
 [sub_resource type="LabelSettings" id="LabelSettings_yonol"]
 font = SubResource("SystemFont_bkt36")
-font_color = Color(0, 0, 0, 1)
 
 [node name="Judge" type="CharacterBody2D"]
 collision_layer = 16

@@ -28,7 +28,7 @@ static func read_collisions_from_file():
 
 var initial_position
 var initial_direction
-var speed = 50
+var speed = 100
 var jump_speed = 200
 var dir = 1
 var paused = false

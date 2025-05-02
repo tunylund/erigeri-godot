@@ -1,6 +1,6 @@
 [gd_scene load_steps=6 format=3 uid="uid://dbveg8irl5i6r"]
 
-[ext_resource type="Texture2D" uid="uid://do06iaa15xreu" path="res://assets/bg-1.png" id="1_ot8w4"]
+[ext_resource type="Texture2D" uid="uid://bi1gcdw1b6qgd" path="res://assets/bg-2.jpg" id="1_kijfm"]
 [ext_resource type="Texture2D" uid="uid://rtog3y5bdqmf" path="res://assets/tiles.png" id="2_2pe62"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_kms38"]
@@ -20,7 +20,7 @@ size = Vector2(632, 8)
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
 scale = Vector2(0.675, 0.675)
-texture = ExtResource("1_ot8w4")
+texture = ExtResource("1_kijfm")
 centered = false
 
 [node name="TileMap" type="TileMap" parent="."]
